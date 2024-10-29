@@ -46,11 +46,11 @@
         <td>
             @if (displayResults == true && CurrentAlgorithm != null)
             {
-                <h3>Results:</h3>
+            <h3>Results:</h3>
 
-                <div>Worst case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.WorstCaseComplexity))</div>
-                <div>Average case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.AverageCaseComplexity))</div>
-                <div>Best case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.BestCaseComplexity))</div>
+            <div>Worst case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.WorstCaseComplexity))</div>
+            <div>Average case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.AverageCaseComplexity))</div>
+            <div>Best case complexity: @((MarkupString)ComplexityToHTML(CurrentAlgorithm.BestCaseComplexity))</div>
             }
         </td>
     </tr>
@@ -59,7 +59,8 @@
 <div class="flex-box">
     @foreach(int element in Array)
     {
-        <div style="height: @(element)px"></div>
+    String color = GetRainbowColor(element);
+    <div style="height: @(element)px; background-color: @color;"></div>
     }
 </div>
 
