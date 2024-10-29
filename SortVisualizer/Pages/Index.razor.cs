@@ -24,7 +24,9 @@ namespace SortVisualizer.Pages
         O_N2,       // Quadratic
         O_N3,       // Cubic
         O_2N,       // Exponential
-        O_NFact     // Factorial
+        O_NFact,    // Factorial
+        O_NK,       // Polynomial (specifically O(N * K))
+        O_N_plus_K  // Sum of linear terms, O(N + K)
     }
 
 	public partial class Index : ComponentBase
@@ -35,6 +37,7 @@ namespace SortVisualizer.Pages
 
         private CancellationTokenSource? cancellationSource;
         private bool displayResults = false;
+        private const int LARGEST_NUM = 1000;
 
         private int[]? originalArray;//Do not modify this!
         #endregion
@@ -71,7 +74,6 @@ namespace SortVisualizer.Pages
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
 
         // Gets called when the user clicks the "Go!" button
-        // There should be no need to modify this method but feel free to do so if needed
         private async Task Sort(CancellationToken cancellationToken)
         {
             try
@@ -83,10 +85,8 @@ namespace SortVisualizer.Pages
                 cancellationToken.ThrowIfCancellationRequested();
 
                 StateHasChanged();
-                if(await ValidateResults())
-                {
-                    displayResults = true;
-                }
+                await ValidateResults();
+                displayResults = true;
             }
             catch(OperationCanceledException)
             {
@@ -145,7 +145,6 @@ namespace SortVisualizer.Pages
             }
 
             cancellationSource = new CancellationTokenSource();
-            instructionsUntilRepaint = INSTRUCTIONS_UNTIL_REPAINT;
             StateHasChanged();
             await Sort(cancellationSource.Token);
         }
@@ -201,14 +200,26 @@ namespace SortVisualizer.Pages
         {
             //Populate the array with random numbers using LINQ
             Random rand = new Random(Seed);
-            Array = Enumerable.Range(0, ArraySize)
-                .Select(x => x = rand.Next(1, 1000))
-                .ToArray();
+            if (ArraySize <= LARGEST_NUM)
+            {
+                // Generate unique numbers if ArraySize is within the range of LARGEST_NUMBER
+                Array = Enumerable.Range(1, ArraySize)
+                    .OrderBy(x => rand.Next()) // Shuffle
+                    .Take(ArraySize) // Take only the required amount
+                    .ToArray();
+            }
+            else
+            {
+                // Only allow duplicates if ArraySize exceeds LARGEST_NUMBER
+                Array = Enumerable.Range(0, ArraySize)
+                    .Select(x => rand.Next(1, LARGEST_NUM + 1))
+                    .ToArray();
+            }
             //Clone Array into originalArray
             originalArray = Array.ToArray();
         }
 
-        private async Task<bool> ValidateResults()
+        private async Task ValidateResults()
         {
             Console.WriteLine("Validating results...");
             // Is Array sorted?
@@ -217,7 +228,6 @@ namespace SortVisualizer.Pages
             if (tempArray.SequenceEqual(Array))
             {
                 Console.WriteLine("Array is sorted!");
-                return true;
             }
             else
             {
@@ -226,7 +236,6 @@ namespace SortVisualizer.Pages
                     await JS.InvokeVoidAsync("alert", "Array is not sorted!");
                 }
                 Console.WriteLine("Array is not sorted!");
-                return false;
             }
         }
 
@@ -250,9 +259,28 @@ namespace SortVisualizer.Pages
                     return "O(2<sup>n</sup>)";
                 case Complexity.O_NFact:
                     return "O(n!)";
+                case Complexity.O_NK:
+                    return "O(n * k)";
+                case Complexity.O_N_plus_K:
+                    return "O(n + k)";
                 default:
                     return "Unknown";
             }
+        }
+
+        private String GetRainbowColor(int value)
+        {
+            int upperbound = Math.Min(LARGEST_NUM, Array.Length);
+            
+            // Clamp the value within the range
+            value = Math.Clamp(value, 1, upperbound);
+
+            // Calculate the hue based on value's relative position between min and max
+            // Red (0 degrees) to purple (270 degrees)
+            double hue = 270.0 * (value - 1) / (upperbound - 1);
+
+            // Convert the hue to an HSL color, keeping saturation and lightness fixed
+            return $"hsl({hue}, 100%, 50%)"; // Full saturation and 50% lightness for vibrant colors
         }
         #endregion
     }
