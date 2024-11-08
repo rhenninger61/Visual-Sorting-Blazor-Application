@@ -71,7 +71,8 @@ namespace SortVisualizer.Pages
             // TODO: Add the rest of the sorting algorithms
             new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort()),
             new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort()),
-            new AlgorithmDetails(Algorithm.Quicksort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_N2, new QuickSort())
+            new AlgorithmDetails(Algorithm.Quicksort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_N2, new QuickSort()),
+            new AlgorithmDetails(Algorithm.Mergesort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_NlogN, new MergeSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
