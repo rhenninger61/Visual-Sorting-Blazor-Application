@@ -67,8 +67,9 @@ namespace SortVisualizer.Pages
         public Algorithm AlgorithmToUse { get; set; } = Algorithm.BubbleSort; //Default value
 
         public AlgorithmDetails[] SortingAlgorithmInstances = [
-            new AlgorithmDetails(Algorithm.BubbleSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new BubbleSort())
+            new AlgorithmDetails(Algorithm.BubbleSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new BubbleSort()),
             // TODO: Add the rest of the sorting algorithms
+            new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
