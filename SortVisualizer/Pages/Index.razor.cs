@@ -12,6 +12,7 @@ namespace SortVisualizer.Pages
 		InsertionSort,
         Quicksort,
         Mergesort,
+        ShellSort
         // TODO: Add your additional sorting algorithms here
     }
 
@@ -21,6 +22,7 @@ namespace SortVisualizer.Pages
         O_logN,     // Logarithmic
         O_N,        // Linear
         O_NlogN,    // Linearithmic
+        O_NlogN2,
         O_N2,       // Quadratic
         O_N3,       // Cubic
         O_2N,       // Exponential
@@ -66,13 +68,14 @@ namespace SortVisualizer.Pages
         //The algorithm to use for sorting
         public Algorithm AlgorithmToUse { get; set; } = Algorithm.BubbleSort; //Default value
 
+        // TODO: Add the rest of the sorting algorithms
         public AlgorithmDetails[] SortingAlgorithmInstances = [
             new AlgorithmDetails(Algorithm.BubbleSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new BubbleSort()),
-            // TODO: Add the rest of the sorting algorithms
             new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort()),
             new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort()),
             new AlgorithmDetails(Algorithm.Quicksort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_N2, new QuickSort()),
-            new AlgorithmDetails(Algorithm.Mergesort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_NlogN, new MergeSort())
+            new AlgorithmDetails(Algorithm.Mergesort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_NlogN, new MergeSort()),
+            new AlgorithmDetails(Algorithm.ShellSort, Complexity.O_NlogN, Complexity.O_NlogN2, Complexity.O_NlogN2, new ShellSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
@@ -133,7 +136,10 @@ namespace SortVisualizer.Pages
                 case "merge":
                     AlgorithmToUse = Algorithm.Mergesort;
                     break;
-                // TODO: Add your additional sorting algorithms here
+                case "shell":
+                    AlgorithmToUse = Algorithm.ShellSort;
+                    break;
+                    // TODO: Add your additional sorting algorithms here
             }
 
             Console.WriteLine($"Algorithm to run: {AlgorithmToUse}");
@@ -258,6 +264,8 @@ namespace SortVisualizer.Pages
                     return "O(n)";
                 case Complexity.O_NlogN:
                     return "O(n log n)";
+                case Complexity.O_NlogN2:
+                    return "O(n log n)<sup>2</sup>";
                 case Complexity.O_N2:
                     return "O(n<sup>2</sup>)";
                 case Complexity.O_N3:

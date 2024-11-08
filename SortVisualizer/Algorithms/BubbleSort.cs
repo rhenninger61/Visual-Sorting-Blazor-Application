@@ -17,6 +17,8 @@ namespace SortVisualizer.Algorithms
 
             while (sorted == false)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 sorted = true;// loops through the array, asking the algorithm to prove you wrong
 
                 for (int i = 0; i < unsortedUntilIndex; i++)
@@ -30,7 +32,6 @@ namespace SortVisualizer.Algorithms
                         sorted = false; // it made a swap and proved you wrong
                         await Repaint(null);
                     }
-                    cancellationToken.ThrowIfCancellationRequested();
                 }
 
                 // largest item has been sorted and you don't need to look at it anymore
