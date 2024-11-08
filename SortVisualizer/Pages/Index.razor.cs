@@ -70,7 +70,8 @@ namespace SortVisualizer.Pages
             new AlgorithmDetails(Algorithm.BubbleSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new BubbleSort()),
             // TODO: Add the rest of the sorting algorithms
             new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort()),
-            new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort())
+            new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort()),
+            new AlgorithmDetails(Algorithm.Quicksort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_N2, new QuickSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
@@ -126,6 +127,7 @@ namespace SortVisualizer.Pages
                     break;
                 case "quicksort":
                     AlgorithmToUse = Algorithm.Quicksort;
+                    INSTRUCTIONS_UNTIL_REPAINT = 6;
                     break;
                 case "merge":
                     AlgorithmToUse = Algorithm.Mergesort;
