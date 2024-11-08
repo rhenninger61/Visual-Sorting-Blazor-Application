@@ -69,7 +69,8 @@ namespace SortVisualizer.Pages
         public AlgorithmDetails[] SortingAlgorithmInstances = [
             new AlgorithmDetails(Algorithm.BubbleSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new BubbleSort()),
             // TODO: Add the rest of the sorting algorithms
-            new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort())
+            new AlgorithmDetails(Algorithm.SelectionSort, Complexity.O_N2, Complexity.O_N2, Complexity.O_N2, new SelectionSort()),
+            new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
@@ -117,9 +118,11 @@ namespace SortVisualizer.Pages
                     break;
 				case "selection":
 					AlgorithmToUse = Algorithm.SelectionSort;
+                    INSTRUCTIONS_UNTIL_REPAINT = 1;
                     break;
 				case "insertion":
 					AlgorithmToUse = Algorithm.InsertionSort;
+                    INSTRUCTIONS_UNTIL_REPAINT = 1;
                     break;
                 case "quicksort":
                     AlgorithmToUse = Algorithm.Quicksort;
