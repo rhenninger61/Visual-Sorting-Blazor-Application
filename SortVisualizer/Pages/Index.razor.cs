@@ -12,8 +12,10 @@ namespace SortVisualizer.Pages
 		InsertionSort,
         Quicksort,
         Mergesort,
-        ShellSort
-        // TODO: Add your additional sorting algorithms here
+        ShellSort,
+        CycleSort,
+        GnomeSort,
+        OddEvenSort
     }
 
     public enum Complexity
@@ -75,7 +77,10 @@ namespace SortVisualizer.Pages
             new AlgorithmDetails(Algorithm.InsertionSort, Complexity.O_N, Complexity.O_N2, Complexity.O_N2, new InsertionSort()),
             new AlgorithmDetails(Algorithm.Quicksort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_N2, new QuickSort()),
             new AlgorithmDetails(Algorithm.Mergesort, Complexity.O_NlogN, Complexity.O_NlogN, Complexity.O_NlogN, new MergeSort()),
-            new AlgorithmDetails(Algorithm.ShellSort, Complexity.O_NlogN, Complexity.O_NlogN2, Complexity.O_NlogN2, new ShellSort())
+            new AlgorithmDetails(Algorithm.ShellSort, Complexity.O_NlogN, Complexity.O_NlogN2, Complexity.O_NlogN2, new ShellSort()),
+            new AlgorithmDetails(Algorithm.CycleSort, Complexity.O_NlogN, Complexity.O_NlogN2, Complexity.O_NlogN2, new CycleSort()),
+            new AlgorithmDetails(Algorithm.GnomeSort, Complexity.O_N2, Complexity.O_N, Complexity.O_N2, new GnomeSort()),
+            new AlgorithmDetails(Algorithm.OddEvenSort, Complexity.O_N2, Complexity.O_N, Complexity.O_N2, new OddEvenSort())
             ];
 
         public AlgorithmDetails? CurrentAlgorithm { get; set; }
@@ -119,7 +124,7 @@ namespace SortVisualizer.Pages
 				case "bubble":
                     AlgorithmToUse = Algorithm.BubbleSort;
                     // Bubble sort is slow, so increase the instructions until repaint
-                    INSTRUCTIONS_UNTIL_REPAINT = 24;
+                    INSTRUCTIONS_UNTIL_REPAINT = 50;
                     break;
 				case "selection":
 					AlgorithmToUse = Algorithm.SelectionSort;
@@ -138,6 +143,17 @@ namespace SortVisualizer.Pages
                     break;
                 case "shell":
                     AlgorithmToUse = Algorithm.ShellSort;
+                    break;
+                case "cycle":
+                    AlgorithmToUse = Algorithm.CycleSort;
+                    break;
+                case "gnome":
+                    AlgorithmToUse = Algorithm.GnomeSort;
+                    INSTRUCTIONS_UNTIL_REPAINT = 50;
+                    break;
+                case "oddeven":
+                    AlgorithmToUse = Algorithm.OddEvenSort;
+                    INSTRUCTIONS_UNTIL_REPAINT = 100;
                     break;
                     // TODO: Add your additional sorting algorithms here
             }

@@ -9,7 +9,6 @@ namespace SortVisualizer.Algorithms
         // Worst case: O(NlogN)^2
         public async Task SortAsync(int[] array, Func<int?, Task> Repaint, CancellationToken cancellationToken)
         {
-            // TODO: Implement SelectionSort
             // Remember to call Repaint() (e.g. await Repaint(null);) after each swap
             // Remember to call cancellationToken.ThrowIfCancellationRequested(); after each iteration
 
