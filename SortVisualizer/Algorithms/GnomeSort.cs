@@ -5,8 +5,8 @@ namespace SortVisualizer.Algorithms
 {
     public class GnomeSort : ISortable
     {
-        // Best case: O(N^2)
-        // Average case: O(N)
+        // Best case: O(N)
+        // Average case: O(N^2)
         // Worst case: O(N^2)
         public async Task SortAsync(int[] array, Func<int?, Task> Repaint, CancellationToken cancellationToken)
         {

@@ -5,9 +5,9 @@ namespace SortVisualizer.Algorithms
 {
     public class CycleSort : ISortable
     {
-        // Best case: O(NlogN)
-        // Average case: O(NlogN)
-        // Worst case: O(NlogN)
+        // Best case: O(N^2)
+        // Average case: O(N^2)
+        // Worst case: O(N^2)
         public async Task SortAsync(int[] array, Func<int?, Task> Repaint, CancellationToken cancellationToken)
         {
             // TODO: Implement SelectionSort

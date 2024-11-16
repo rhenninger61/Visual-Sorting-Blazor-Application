@@ -29,8 +29,8 @@ namespace SortVisualizer.Algorithms
                         int temp = array[i];
                         array[i] = array[i + 1];
                         array[i + 1] = temp;
-                        sorted = false; // it made a swap and proved you wrong
                         await Repaint(null);
+                        sorted = false; // it made a swap and proved you wrong                        
                     }
                 }
 
